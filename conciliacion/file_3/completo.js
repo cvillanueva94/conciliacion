@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const {ExecuteFetch} = require('../../common/node-fetch')
+const csv = require("csv-stringify");
 
 const init =async ()=>{
     try{
@@ -15,7 +16,7 @@ const init =async ()=>{
         const completoEtecsa = file_3.concat(file_4).concat(file_7).concat(file_8)
 
         const enEtecsaNoEnGuajiritoGuardar = []
-        for(let i = 8016; i < completoEtecsa.length; i++){
+        for(let i = 0; i < completoEtecsa.length; i++){
             let item =completoEtecsa[i]
             const headers = {
                 'Content-Type': 'application/json',
@@ -32,17 +33,39 @@ const init =async ()=>{
 
             const payment = await ExecuteFetch(`https://api.mibulevar.com/v1/admin/payment?limit=10&offset=0&order=-createdAt&filter%5B$and%5D%5Border%5D%5B$like%5D=%25${item['id tercero']}%25`,options)
             enEtecsaNoEnGuajiritoGuardar.push({
-                index:`${i}/${completoEtecsa.length}`,
+                index:i,
                 estado: payment.body.data[0]?.status,
                 codigo: item['id tercero'],
                 esta: payment.body.data.length?'si':'no',
                 valorGuajiritos: payment.body.data[0]?.amount,
                 valorEtecsa: item.Importe,
                 fecha: item.DATE,
+                business: payment.body.data[0]?.Business.name,
                 // Guajiritos: payment.body.data
             })
+
             console.log(`${i}/${completoEtecsa.length}`)
-            fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.json'), JSON.stringify(enEtecsaNoEnGuajiritoGuardar));
+            
+            // (C) CREATE CSV FILE
+            csv.stringify(enEtecsaNoEnGuajiritoGuardar, {
+                header : true,
+                columns : { 
+                    index: 'numero',
+                    codigo: 'codigo',
+                    valorEtecsa: 'valor etecsa',
+                    fecha: 'fecha',
+                    
+                    esta: 'esta en guaj',
+
+                    estado: 'estado en guaj',
+                    
+                    valorGuajiritos: 'valor en guaj',
+                    business:'Tienda'
+                }
+            }, (err, output) => {
+                fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.csv'), output);
+            });
+            // fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.json'), JSON.stringify(enEtecsaNoEnGuajiritoGuardar));
         }
     } catch(e) {
         console.log(e)
