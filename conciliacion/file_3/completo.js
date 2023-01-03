@@ -19,8 +19,8 @@ const init =async ()=>{
 
         const metodo = async (arr, text) =>{
             for(let i = 0; i < arr.length; i++){
+                let item = arr[i]
                 if(item['id tercero'].startsWith('TIE')){
-                    let item = arr[i]
                     const headers = {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
