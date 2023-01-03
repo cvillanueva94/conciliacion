@@ -19,55 +19,57 @@ const init =async ()=>{
 
         const metodo = async (arr, text) =>{
             for(let i = 0; i < arr.length; i++){
-                let item =arr[i]
-                const headers = {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    'Accept-Charset': 'utf-8',
-                    Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJrcmxvc25vdGlmaWNhdGlvbnMxMDE5OTRAZ21haWwuY29tIiwibGFzdExvZ291dCI6IjIwMjMtMDEtMDNUMTY6MzE6NTguMDAwWiIsImRhdGUiOiIyMDIzLTAxLTAzVDE5OjI1OjU3LjE1N1oiLCJjcmVhdGVkQXQiOiIyMDIxLTA3LTI3VDA0OjA1OjIxLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTAxLTAzVDE2OjMxOjU4LjAwMFoiLCJyYW5kb20iOjAuNDM5MzI4ODUwNzgzNTM2OX0sImlhdCI6MTY3Mjc3Mzk1NywiZXhwIjoxNjcyODA5OTU3fQ.B3B8lCh6CailvLhU3aI_5xg_Eq5bg19NfxY9byIZuWs'
-                };
-    
-                const options = {
-                    method: 'get',
-                    headers: headers,
-                };
-    
-    
-                const payment = await ExecuteFetch(`https://api.tiendascaracol.com/v1/admin/payment?limit=10&offset=0&order=-createdAt&filter%5B$and%5D%5Border%5D%5B$like%5D=%25${item['id tercero']}%25`,options)
-                enEtecsaNoEnGuajiritoGuardar.push({
-                    index:i,
-                    estado: payment.body.data[0]?.status,
-                    codigo: item['id tercero'],
-                    esta: payment.body.data.length?'si':'no',
-                    valorGuajiritos: payment.body.data[0]?.amount,
-                    valorEtecsa: item.Importe,
-                    fecha: item.DATE,
-                    business: payment.body.data[0]?.Business.name,
-                    // Guajiritos: payment.body.data
-                })
-    
-                console.log(`${text} ${i}/${arr.length}`)
-                
-                // (C) CREATE CSV FILE
-                csv.stringify(enEtecsaNoEnGuajiritoGuardar, {
-                    header : true,
-                    columns : { 
-                        index: 'numero',
-                        codigo: 'codigo',
-                        valorEtecsa: 'valor etecsa',
-                        fecha: 'fecha',
-                        
-                        esta: 'esta en guaj',
-    
-                        estado: 'estado en guaj',
-                        
-                        valorGuajiritos: 'valor en guaj',
-                        business:'Tienda'
-                    }
-                }, (err, output) => {
-                    fs.writeFileSync(path.resolve(thisPath,`./${text}.csv`), output);
-                });
-                // fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.json'), JSON.stringify(enEtecsaNoEnGuajiritoGuardar));
+                if(item['id tercero'].startsWith('TIE')){
+                    let item = arr[i]
+                    const headers = {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                        'Accept-Charset': 'utf-8',
+                        Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJrcmxvc25vdGlmaWNhdGlvbnMxMDE5OTRAZ21haWwuY29tIiwibGFzdExvZ291dCI6IjIwMjMtMDEtMDNUMTY6MzE6NTguMDAwWiIsImRhdGUiOiIyMDIzLTAxLTAzVDE5OjI1OjU3LjE1N1oiLCJjcmVhdGVkQXQiOiIyMDIxLTA3LTI3VDA0OjA1OjIxLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTAxLTAzVDE2OjMxOjU4LjAwMFoiLCJyYW5kb20iOjAuNDM5MzI4ODUwNzgzNTM2OX0sImlhdCI6MTY3Mjc3Mzk1NywiZXhwIjoxNjcyODA5OTU3fQ.B3B8lCh6CailvLhU3aI_5xg_Eq5bg19NfxY9byIZuWs'
+                    };
+        
+                    const options = {
+                        method: 'get',
+                        headers: headers,
+                    };
+        
+        
+                    const payment = await ExecuteFetch(`https://api.tiendascaracol.com/v1/admin/payment?limit=10&offset=0&order=-createdAt&filter%5B$and%5D%5Border%5D%5B$like%5D=%25${item['id tercero']}%25`,options)
+                    enEtecsaNoEnGuajiritoGuardar.push({
+                        index:i,
+                        estado: payment.body.data[0]?.status,
+                        codigo: item['id tercero'],
+                        esta: payment.body.data.length?'si':'no',
+                        valorGuajiritos: payment.body.data[0]?.amount,
+                        valorEtecsa: item.Importe,
+                        fecha: item.DATE,
+                        business: payment.body.data[0]?.Business.name,
+                        // Guajiritos: payment.body.data
+                    })
+        
+                    console.log(`${text} ${i}/${arr.length}`)
+                    
+                    // (C) CREATE CSV FILE
+                    csv.stringify(enEtecsaNoEnGuajiritoGuardar, {
+                        header : true,
+                        columns : { 
+                            index: 'numero',
+                            codigo: 'codigo',
+                            valorEtecsa: 'valor etecsa',
+                            fecha: 'fecha',
+                            
+                            esta: 'esta en guaj',
+        
+                            estado: 'estado en guaj',
+                            
+                            valorGuajiritos: 'valor en guaj',
+                            business:'Tienda'
+                        }
+                    }, (err, output) => {
+                        fs.writeFileSync(path.resolve(thisPath,`./${text}.csv`), output);
+                    });
+                    // fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.json'), JSON.stringify(enEtecsaNoEnGuajiritoGuardar));
+                }
             }
         }
         
