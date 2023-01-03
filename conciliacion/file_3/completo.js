@@ -16,7 +16,7 @@ const init =async ()=>{
         const completoEtecsa = file_3.concat(file_4).concat(file_7).concat(file_8)
 
         const enEtecsaNoEnGuajiritoGuardar = []
-        for(let i = 0; i < completoEtecsa.length; i++){
+        for(let i = 1136; i < completoEtecsa.length; i++){
             let item =completoEtecsa[i]
             const headers = {
                 'Content-Type': 'application/json',
