@@ -22,7 +22,7 @@ const init =async ()=>{
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
                 'Accept-Charset': 'utf-8',
-                Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwibGFzdExvZ291dCI6IjIwMjItMTItMjZUMTU6MTI6NTUuMDAwWiIsImRhdGUiOiIyMDIzLTAxLTAxVDE4OjM2OjM1LjgwMloiLCJjcmVhdGVkQXQiOiIyMDIxLTA5LTEzVDAxOjQ0OjMwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTEyLTI2VDE1OjEyOjU1LjAwMFoiLCJyYW5kb20iOjAuNTY2ODEzMDU3OTg1MzA2Nn0sImlhdCI6MTY3MjU5ODE5NSwiZXhwIjoxNjcyNjM0MTk1fQ.F8xqyhX9psiN-ZmrljlQddu3IrAm-qjKJCRAVMbKa_s'
+                Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJrcmxvc25vdGlmaWNhdGlvbnMxMDE5OTRAZ21haWwuY29tIiwibGFzdExvZ291dCI6IjIwMjMtMDEtMDNUMTY6MzE6NTguMDAwWiIsImRhdGUiOiIyMDIzLTAxLTAzVDE5OjI1OjU3LjE1N1oiLCJjcmVhdGVkQXQiOiIyMDIxLTA3LTI3VDA0OjA1OjIxLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTAxLTAzVDE2OjMxOjU4LjAwMFoiLCJyYW5kb20iOjAuNDM5MzI4ODUwNzgzNTM2OX0sImlhdCI6MTY3Mjc3Mzk1NywiZXhwIjoxNjcyODA5OTU3fQ.B3B8lCh6CailvLhU3aI_5xg_Eq5bg19NfxY9byIZuWs'
             };
 
             const options = {
@@ -31,7 +31,7 @@ const init =async ()=>{
             };
 
 
-            const payment = await ExecuteFetch(`https://api.mibulevar.com/v1/admin/payment?limit=10&offset=0&order=-createdAt&filter%5B$and%5D%5Border%5D%5B$like%5D=%25${item['id tercero']}%25`,options)
+            const payment = await ExecuteFetch(`https://api.tiendascaracol.com/v1/admin/payment?limit=10&offset=0&order=-createdAt&filter%5B$and%5D%5Border%5D%5B$like%5D=%25${item['id tercero']}%25`,options)
             enEtecsaNoEnGuajiritoGuardar.push({
                 index:i,
                 estado: payment.body.data[0]?.status,
@@ -63,7 +63,7 @@ const init =async ()=>{
                     business:'Tienda'
                 }
             }, (err, output) => {
-                fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.csv'), output);
+                fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito3.csv'), output);
             });
             // fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.json'), JSON.stringify(enEtecsaNoEnGuajiritoGuardar));
         }
