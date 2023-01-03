@@ -13,7 +13,7 @@ const init =async ()=>{
         const file_7 = require('../../mapper/file_7')
         const file_8 = require('../../mapper/file_8')
 
-        const completoEtecsa = file_3.concat(file_4).concat(file_7).concat(file_8)
+        // const completoEtecsa = file_3.concat(file_4).concat(file_7).concat(file_8)
 
         const enEtecsaNoEnGuajiritoGuardar = []
 
@@ -46,7 +46,7 @@ const init =async ()=>{
                     // Guajiritos: payment.body.data
                 })
     
-                console.log(`${i}/${completoEtecsa.length}`)
+                console.log(`${text} ${i}/${arr.length}`)
                 
                 // (C) CREATE CSV FILE
                 csv.stringify(enEtecsaNoEnGuajiritoGuardar, {
