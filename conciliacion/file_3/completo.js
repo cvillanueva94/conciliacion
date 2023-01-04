@@ -74,9 +74,9 @@ const init =async ()=>{
         }
         
         await metodo (file_3, 'file_3')
-        await metodo (file_4, 'file_4')
-        await metodo (file_7, 'file_7')
-        await metodo (file_8, 'file_8')
+        // await metodo (file_4, 'file_4')
+        // await metodo (file_7, 'file_7')
+        // await metodo (file_8, 'file_8')
     } catch(e) {
         console.log(e)
     }   
