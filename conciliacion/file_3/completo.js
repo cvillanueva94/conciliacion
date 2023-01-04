@@ -18,7 +18,7 @@ const init =async ()=>{
         const enEtecsaNoEnGuajiritoGuardar = []
 
         const metodo = async (arr, text) =>{
-            for(let i = 0; i < arr.length; i++){
+            for(let i = 1144; i < arr.length; i++){
                 let item = arr[i]
                 if(item['id tercero'].startsWith('TIE')){
                     const headers = {
@@ -66,7 +66,7 @@ const init =async ()=>{
                             business:'Tienda'
                         }
                     }, (err, output) => {
-                        fs.writeFileSync(path.resolve(thisPath,`./${text}.csv`), output);
+                        fs.writeFileSync(path.resolve(thisPath,`./${text}-1144.csv`), output);
                     });
                     // fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.json'), JSON.stringify(enEtecsaNoEnGuajiritoGuardar));
                 }
