@@ -66,17 +66,17 @@ const init =async ()=>{
                             business:'Tienda'
                         }
                     }, (err, output) => {
-                        fs.writeFileSync(path.resolve(thisPath,`./${text}-2245.csv`), output);
+                        fs.writeFileSync(path.resolve(thisPath,`./${text}.csv`), output);
                     });
                     // fs.writeFileSync(path.resolve(thisPath,'./enEtecsaNoEnGuajirito2.json'), JSON.stringify(enEtecsaNoEnGuajiritoGuardar));
                 }
             }
         }
         
-        await metodo (file_3, 'file_3')
+        // await metodo (file_3, 'file_3')
         // await metodo (file_4, 'file_4')
         // await metodo (file_7, 'file_7')
-        // await metodo (file_8, 'file_8')
+        await metodo (file_8, 'file_8')
     } catch(e) {
         console.log(e)
     }   
